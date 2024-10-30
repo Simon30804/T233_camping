@@ -39,11 +39,10 @@ public class ParcelaListAdapter extends ListAdapter<Parcela, ParcelaViewHolder> 
         Parcela current = getItem(position);
         holder.bind(current.getNombre());
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 setPosition(holder.getAdapterPosition());
-                return false;
             }
         });
     }

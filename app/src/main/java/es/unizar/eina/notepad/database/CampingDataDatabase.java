@@ -47,13 +47,19 @@ public abstract class CampingDataDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more notes, just add them.
-                NoteDao dao = INSTANCE.noteDao();
-                dao.deleteAll();
 
-                Note note = new Note("Note 1's title", "Note 1's body");
-                dao.insert(note);
-                note = new Note("Note 2's title", "Note 2's body");
-                dao.insert(note);
+                ParcelaDao daoP = INSTANCE.parcelaDao();
+                daoP.deleteAll();
+
+                ReservaDao daoR = INSTANCE.reservaDao();
+                daoR.deleteAll();
+
+                //Para tener ya unos elementos en la base de datos
+                Parcela parcela = new Parcela("Valle de Anso", "Tiene agua, y varias tomas de corriente", 7, 6.5);
+                daoP.insert(parcela);
+
+                Reserva reserva = new Reserva("2021-06-01", "2021-06-15", "Javier Susín", 623456324, 8);
+                daoR.insert(reserva);
             });
         }
     };

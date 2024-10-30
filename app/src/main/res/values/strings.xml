@@ -17,7 +17,11 @@
     <string name="button_aceptar">ACEPTAR</string>
     <string name="crear_parcela">Crear Parcela</string>
     <string name="listar_parcelas">Listar Parcelas</string>
+    <string name="modificar_parcela">Modificar Parcela</string>
+    <string name="eliminar_parcela">Eliminar Parcela</string>
     <string name="crear_reserva">Crear Reserva</string>
     <string name="listar_reservas">Listar Reservas</string>
+    <string name="modificar_reserva">Modificar Reserva</string>
+    <string name="eliminar_reserva">Eliminar Reserva</string>
 
 </resources>

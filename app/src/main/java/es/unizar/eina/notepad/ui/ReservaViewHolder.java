@@ -34,7 +34,7 @@ class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, Notepad.DELETE_ID, Menu.NONE, R.string.menu_delete);
-        menu.add(Menu.NONE, Notepad.EDIT_ID, Menu.NONE, R.string.menu_edit);
+        menu.add(Menu.NONE, Camping.MODIFICAR_RESERVA_ID, Menu.NONE, R.string.modificar_reserva);
+        menu.add(Menu.NONE, Camping.ELIMINAR_RESERVA_ID, Menu.NONE, R.string.eliminar_reserva);
     }
 }

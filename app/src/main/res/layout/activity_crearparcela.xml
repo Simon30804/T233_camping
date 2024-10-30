@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"> <!-- Dado que la lista de datos a introducir no ocupa toda la pantalla, no es necesario el match parent cuya función es ocupar toda la pantalla -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,10 @@ public class Camping extends AppCompatActivity {
     static final int LISTAR_PARCELAS_ID = Menu.FIRST + 1;
     static final int CREAR_RESERVA_ID = Menu.FIRST + 2;
     static final int LISTAR_RESERVAS_ID = Menu.FIRST + 3;
+    static final int MODIFICAR_PARCELA_ID = Menu.FIRST + 4;
+    static final int ELIMINAR_PARCELA_ID = Menu.FIRST + 5;
+    static final int MODIFICAR_RESERVA_ID = Menu.FIRST + 6;
+    static final int ELIMINAR_RESERVA_ID = Menu.FIRST + 7;
 
     RecyclerView mRecyclerView;
     ParcelaListAdapter mParAdapter;
