@@ -47,4 +47,21 @@ public class ParcelaListAdapter extends ListAdapter<Parcela, ParcelaViewHolder> 
             }
         });
     }
+
+    static class ParcelaDiff extends DiffUtil.ItemCallback<Parcela> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
+            //android.util.Log.d ( "ParcelaDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
+            //android.util.Log.d ( "ParcelaDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
+            // We are just worried about differences in visual representation, i.e. changes in the title
+            return oldItem.getNombre().equals(newItem.getNombre());
+        }
+    }
+
 }

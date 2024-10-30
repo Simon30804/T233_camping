@@ -9,4 +9,15 @@
     <string name="menu_edit">Edit Note</string>
     <string name="title">Title</string>
     <string name="body">Body</string>
+
+    <!--Estos son los que usaremos en cammping -->
+    <string name="nombre_parcela">Nombre de la parcela: </string>
+    <string name="precio_persona">Precio por persona/noche</string>
+    <string name="numero_ocupantes">Número de ocupantes</string>
+    <string name="button_aceptar">ACEPTAR</string>
+    <string name="crear_parcela">Crear Parcela</string>
+    <string name="listar_parcelas">Listar Parcelas</string>
+    <string name="crear_reserva">Crear Reserva</string>
+    <string name="listar_reservas">Listar Reservas</string>
+
 </resources>
