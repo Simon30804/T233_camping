@@ -102,14 +102,14 @@ public class Notepad extends AppCompatActivity {
         mStartCreateNote.launch(new Intent(this, NoteEdit.class));
     }
 
-    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
         @Override
         public void process(Bundle extras, Note note) {
             mNoteViewModel.insert(note);
         }
     });
 
-    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult executable) {
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult2 executable) {
         return registerForActivityResult(
                 new StartActivityForResult(),
                 result -> {
@@ -130,7 +130,7 @@ public class Notepad extends AppCompatActivity {
         mStartUpdateNote.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
         @Override
         public void process(Bundle extras, Note note) {
             int id = extras.getInt(NoteEdit.NOTE_ID);

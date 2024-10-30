@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.unizar.eina.notepad.R;
-import es.unizar.eina.notepad.database.Parcela;
+import es.unizar.eina.notepad.database.Note;
 
 /** Pantalla principal de la aplicación Camping */
 public class Camping extends AppCompatActivity {
@@ -98,14 +98,14 @@ public class Camping extends AppCompatActivity {
         mStartCreateNote.launch(new Intent(this, NoteEdit.class));
     }
 
-    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
         @Override
         public void process(Bundle extras, Note note) {
             mParcelaViewModel.insert(note);
         }
     });
 
-    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult executable) {
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult2 executable) {
         return registerForActivityResult(
                 new StartActivityForResult(),
                 result -> {
@@ -126,7 +126,7 @@ public class Camping extends AppCompatActivity {
         mStartUpdateNote.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
         @Override
         public void process(Bundle extras, Note note) {
             int id = extras.getInt(NoteEdit.NOTE_ID);
@@ -137,6 +137,8 @@ public class Camping extends AppCompatActivity {
 
 }
 
-interface ExecuteActivityResult {
+interface ExecuteActivityResult2 {
+    void process(Bundle extras, Note note);
+
     void process(Bundle extras, Note note);
 }
