@@ -59,6 +59,7 @@ public class Camping extends AppCompatActivity {
             startActivity(intent);
         });
 
+
         buttonListParcelas.setOnClickListener(view -> {
             // Inicia la actividad para listar todas las parcelas
             Intent intent = new Intent(Camping.this, ListarParcelas.class);

@@ -152,28 +152,28 @@ public class CrearParcela extends AppCompatActivity {
             finish();
         });
 
-        populateFields();
+        //populateFields();
     }
 
-    private void populateFields() {
-        mRowId = null;
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            // Cargamos los datos de la parcela si están disponibles
-            mNombreText.setText(extras.getString(CrearParcela.PARCELA_NOMBRE));
-            mDescripcionText.setText(extras.getString(CrearParcela.PARCELA_DESCRIPCION));
-
-            // Verificamos y cargamos el número de ocupantes y el precio como enteros
-            if (extras.containsKey(CrearParcela.PARCELA_NUMOCUPANTES)) {
-                mNumOcupantesText.setText(String.valueOf(extras.getInt(CrearParcela.PARCELA_NUMOCUPANTES)));
-            }
-            if (extras.containsKey(CrearParcela.PARCELA_PRECIOPERSONA)) {
-                mPrecioPersonaText.setText(String.valueOf(extras.getInt(CrearParcela.PARCELA_PRECIOPERSONA)));
-            }
-
-            // Cargamos el ID de la parcela
-            mRowId = extras.getInt(CrearParcela.PARCELA_ID);
-        }
-    }
+//    private void populateFields() {
+//        mRowId = null;
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            // Cargamos los datos de la parcela si están disponibles
+//            mNombreText.setText(extras.getString(CrearParcela.PARCELA_NOMBRE));
+//            mDescripcionText.setText(extras.getString(CrearParcela.PARCELA_DESCRIPCION));
+//
+//            // Verificamos y cargamos el número de ocupantes y el precio como enteros
+//            if (extras.containsKey(CrearParcela.PARCELA_NUMOCUPANTES)) {
+//                mNumOcupantesText.setText(String.valueOf(extras.getInt(CrearParcela.PARCELA_NUMOCUPANTES)));
+//            }
+//            if (extras.containsKey(CrearParcela.PARCELA_PRECIOPERSONA)) {
+//                mPrecioPersonaText.setText(String.valueOf(extras.getInt(CrearParcela.PARCELA_PRECIOPERSONA)));
+//            }
+//
+//            // Cargamos el ID de la parcela
+//            mRowId = extras.getInt(CrearParcela.PARCELA_ID);
+//        }
+//    }
 }
 

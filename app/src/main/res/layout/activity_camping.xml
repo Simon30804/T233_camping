@@ -7,25 +7,25 @@
 
     <Button
         android:id="@+id/button_create_parcela"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:text="Crear Parcela" />
 
     <Button
         android:id="@+id/button_list_parcelas"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Listar Parcelas" />
 
     <Button
         android:id="@+id/button_create_reserva"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:text="Crear Reserva" />
 
     <Button
         android:id="@+id/button_list_reservas"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Listar Reservas" />
 
