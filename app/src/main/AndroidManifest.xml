@@ -7,23 +7,35 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="T233_camping"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+
+        <!-- Actividad principal de la aplicación -->
         <activity
-            android:name=".ui.NoteEdit"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Notepad"
+            android:name=".ui.Camping"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Declaración de otras actividades -->
+        <activity android:name=".ui.Camping2" android:exported="false" />
+        <activity android:name=".ui.CrearParcela" android:exported="false" />
+        <activity android:name=".ui.CrearReserva" android:exported="false" />
+        <activity android:name=".ui.ListarParcelas" android:exported="false" />
+        <activity android:name=".ui.ListarReservas" android:exported="false" />
+        <activity android:name=".ui.ParcelaListAdapter" android:exported="false" />
+        <activity android:name=".ui.ParcelaViewHolder" android:exported="false" />
+        <activity android:name=".ui.ParcelaViewModel" android:exported="false" />
+        <activity android:name=".ui.ReservaListAdapter" android:exported="false" />
+        <activity android:name=".ui.ReservaViewHolder" android:exported="false" />
+        <activity android:name=".ui.ReservaViewModel" android:exported="false" />
+
     </application>
 
 </manifest>

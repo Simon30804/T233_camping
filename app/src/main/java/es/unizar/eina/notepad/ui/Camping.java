@@ -2,15 +2,29 @@ package es.unizar.eina.notepad.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.unizar.eina.notepad.R;
-import es.unizar.eina.notepad.database.Note;
 import es.unizar.eina.notepad.database.Parcela;
 import es.unizar.eina.notepad.database.Reserva;
 
 public class Camping extends AppCompatActivity {
+
+    private ParcelaViewModel mParcelaViewModel;
+    private ReservaViewModel mReservaViewModel;
+
+    static final int CREAR_PARCELA_ID = Menu.FIRST;
+    static final int LISTAR_PARCELAS_ID = Menu.FIRST + 1;
+    static final int CREAR_RESERVA_ID = Menu.FIRST + 2;
+    static final int LISTAR_RESERVAS_ID = Menu.FIRST + 3;
+    static final int MODIFICAR_PARCELA_ID = Menu.FIRST + 4;
+    static final int ELIMINAR_PARCELA_ID = Menu.FIRST + 5;
+    static final int MODIFICAR_RESERVA_ID = Menu.FIRST + 6;
+    static final int ELIMINAR_RESERVA_ID = Menu.FIRST + 7;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +63,7 @@ public class Camping extends AppCompatActivity {
     }
 }
 
-interface ExecuteActivityResult2 {
+interface ExecuteActivityResult {
     void process(Bundle extras, Parcela parcela);
     void process(Bundle extras, Reserva reserva);
 }

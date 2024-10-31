@@ -120,13 +120,13 @@ public class CrearParcela extends AppCompatActivity {
         setContentView(R.layout.activity_crearparcela);
 
         // Inicializamos los campos de entrada
-        mNombreText = findViewById(R.id.nombre);
+        mNombreText = findViewById(R.id.nombre_parcela);
         mDescripcionText = findViewById(R.id.descripcion);
         mNumOcupantesText = findViewById(R.id.num_ocupantes); // ID basado en la imagen proporcionada
         mPrecioPersonaText = findViewById(R.id.precio_persona); // ID basado en la imagen proporcionada
 
         // Inicializamos el botón de guardar
-        mAceptarButton = findViewById(R.id.button_aceptar);
+        mAceptarButton = findViewById(R.id.button_aceptar_parcela);
         mAceptarButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
 

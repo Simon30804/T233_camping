@@ -1,53 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_crear_parcela.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"> <!-- Dado que la lista de datos a introducir no ocupa toda la pantalla, no es necesario el match parent cuya función es ocupar toda la pantalla -->
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
 
-    <LinearLayout android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp" />
-        <EditText
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/min_height"
-            android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_title"
-            android:inputType="textAutoComplete"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <TextView android:layout_width="wrap_content"
+    <!-- Título de la pantalla -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/body"
-        android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
-    <EditText android:id="@+id/nombre_parcela"
+        android:text="CREAR PARCELA:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Campo de entrada: Nombre de la parcela -->
+    <EditText
+        android:id="@+id/nombre_parcela"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/hint_body"
-        android:inputType="textAutoComplete"
-        android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:hint="Nombre de la parcela"
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Campo de entrada: Precio por persona/noche -->
+    <EditText
+        android:id="@+id/precio_persona"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Precio por persona/noche"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Campo de entrada: Número de ocupantes -->
+    <EditText
+        android:id="@+id/num_ocupantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de ocupantes"
+        android:inputType="number"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Campo de entrada: Descripción -->
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="top"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Botón para aceptar -->
     <Button
-        android:id="@+id/button_aceptar"
-        android:layout_width="match_parent"
+        android:id="@+id/button_aceptar_parcela"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_aceptar"
-        android:layout_margin="@dimen/big_padding"
-        android:textColor="@color/buttonLabel" />
+        android:text="ACEPTAR"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>
