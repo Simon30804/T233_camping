@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_options">
+        <item>Nombre</item>
+        <item>Precio</item>
+        <item>Número de Ocupantes</item>
+        <item>Fecha de Reserva</item>
+    </string-array>
+</resources>

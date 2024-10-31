@@ -19,14 +19,34 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/recyclerview_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/modificar_reserva"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/add_note"
-        android:src="@drawable/ic_add_black_24dp"/>
+        android:text="MODIFICAR"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="456dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/eliminar_reserva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ELIMINAR"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="456dp"
+        tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinner_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:entries="@array/order_options"
+        android:padding="8dp"
+        tools:layout_editor_absoluteX="218dp"
+        tools:layout_editor_absoluteY="557dp"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
