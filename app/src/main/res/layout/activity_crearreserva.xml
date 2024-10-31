@@ -1,6 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- activity_crear_reserva.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Título de la pantalla -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CREAR RESERVA:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Campo de entrada: Nombre del cliente -->
+    <EditText
+        android:id="@+id/edit_nombre_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del cliente"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Campo de entrada: Fecha inicio reserva -->
+    <EditText
+        android:id="@+id/edit_fecha_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha inicio reserva"
+        android:inputType="date"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Campo de entrada: Fecha fin reserva -->
+    <EditText
+        android:id="@+id/edit_fecha_fin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha fin reserva"
+        android:inputType="date"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Campo de entrada: Número teléfono cliente -->
+    <EditText
+        android:id="@+id/edit_telefono_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número teléfono cliente"
+        android:inputType="phone"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Campo de entrada: Número ocupantes -->
+    <EditText
+        android:id="@+id/edit_numero_ocupantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número ocupantes"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Botón para aceptar -->
+    <Button
+        android:id="@+id/button_aceptar_reserva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACEPTAR"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
