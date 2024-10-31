@@ -5,8 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
-/** Clase anotada como entidad que representa una parcela y que consta de fecha_incio, fecha_fin, nombre del cliente, número de teléfono y número de ocupantes */
+/** Clase anotada como entidad que representa una parcela y que consta de fecha_inicio, fecha_fin, nombre del cliente, número de teléfono y número de ocupantes */
 @Entity(tableName = "reserva")
 public class Reserva {
     @PrimaryKey(autoGenerate = true)
@@ -15,13 +14,13 @@ public class Reserva {
 
     @NonNull
     @ColumnInfo(name = "fecha_inicio")
-    private String fecha_inicio;
+    private String fechaInicio;
 
     @ColumnInfo(name = "fecha_fin")
-    private String fecha_fin;
+    private String fechaFin;
 
     @ColumnInfo(name = "nombre_cliente")
-    private String nombre_cliente;
+    private String nombreCliente;
 
     @ColumnInfo(name = "telefono")
     private int telefono;
@@ -29,10 +28,10 @@ public class Reserva {
     @ColumnInfo(name = "numOcupantes")
     private int numOcupantes;
 
-    public Reserva(@NonNull String fecha_inicio, String fecha_fin, String nombre_cliente, int telefono, int numOcupantes) {
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
-        this.nombre_cliente = nombre_cliente;
+    public Reserva(@NonNull String fechaInicio, String fechaFin, String nombreCliente, int telefono, int numOcupantes) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.nombreCliente = nombreCliente;
         this.telefono = telefono;
         this.numOcupantes = numOcupantes;
     }
@@ -49,17 +48,17 @@ public class Reserva {
 
     /** Devuelve la fecha de inicio de la reserva */
     public String getFechaInicio(){
-        return this.fecha_inicio;
+        return this.fechaInicio;
     }
 
     /** Devuelve la fecha de fin de la reserva */
     public String getFechaFin(){
-        return this.fecha_fin;
+        return this.fechaFin;
     }
 
     /** Devuelve el nombre del cliente de la reserva */
     public String getNombreCliente(){
-        return this.nombre_cliente;
+        return this.nombreCliente;
     }
 
     /** Devuelve el número de teléfono del cliente de la reserva */
@@ -71,5 +70,4 @@ public class Reserva {
     public int getNumOcupantes(){
         return this.numOcupantes;
     }
-
 }

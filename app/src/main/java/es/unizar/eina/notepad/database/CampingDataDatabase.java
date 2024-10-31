@@ -14,7 +14,6 @@ import java.util.concurrent.Executors;
 @Database(entities = {Parcela.class, Reserva.class}, version = 1, exportSchema = false)
 public abstract class CampingDataDatabase extends RoomDatabase {
 
-    public abstract NoteDao noteDao();
     public abstract ParcelaDao parcelaDao();
     public abstract ReservaDao reservaDao();
 

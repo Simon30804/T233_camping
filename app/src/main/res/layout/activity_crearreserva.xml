@@ -17,7 +17,7 @@
 
     <!-- Campo de entrada: Nombre del cliente -->
     <EditText
-        android:id="@+id/edit_nombre_cliente"
+        android:id="@+id/nombre_cliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombre del cliente"
@@ -25,7 +25,7 @@
 
     <!-- Campo de entrada: Fecha inicio reserva -->
     <EditText
-        android:id="@+id/edit_fecha_inicio"
+        android:id="@+id/fecha_inicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Fecha inicio reserva"
@@ -34,7 +34,7 @@
 
     <!-- Campo de entrada: Fecha fin reserva -->
     <EditText
-        android:id="@+id/edit_fecha_fin"
+        android:id="@+id/fecha_fin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Fecha fin reserva"
@@ -43,7 +43,7 @@
 
     <!-- Campo de entrada: Número teléfono cliente -->
     <EditText
-        android:id="@+id/edit_telefono_cliente"
+        android:id="@+id/telefono_cliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Número teléfono cliente"
@@ -52,7 +52,7 @@
 
     <!-- Campo de entrada: Número ocupantes -->
     <EditText
-        android:id="@+id/edit_numero_ocupantes"
+        android:id="@+id/num_ocupantes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Número ocupantes"

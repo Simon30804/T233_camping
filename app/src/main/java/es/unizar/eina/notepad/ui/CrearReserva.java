@@ -20,6 +20,7 @@ public class CrearReserva extends AppCompatActivity {
     public static final String RESERVA_NUM_OCUPANTES = "num_ocupantes";
 
     private EditText mFechaInicioText;
+
     private EditText mFechaFinText;
     private EditText mNombreClienteText;
     private EditText mTelefonoText;
@@ -29,15 +30,16 @@ public class CrearReserva extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear_reserva);
+        setContentView(R.layout.activity_crearreserva);
 
         // Enlazamos los elementos de la interfaz
+
         mFechaInicioText = findViewById(R.id.fecha_inicio);
         mFechaFinText = findViewById(R.id.fecha_fin);
         mNombreClienteText = findViewById(R.id.nombre_cliente);
-        mTelefonoText = findViewById(R.id.telefono);
+        mTelefonoText = findViewById(R.id.telefono_cliente);
         mNumOcupantesText = findViewById(R.id.num_ocupantes);
-        mAceptarButton = findViewById(R.id.button_save);
+        mAceptarButton = findViewById(R.id.button_aceptar_reserva);
 
         // Configuramos la acción del botón "Guardar"
         mAceptarButton.setOnClickListener(view -> {
