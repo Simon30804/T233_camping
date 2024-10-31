@@ -7,14 +7,20 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.Executors;
 
 
 public class ParcelaRepository {
     private final ParcelaDao mParcelaDao;
     private final LiveData<List<Parcela>> mAllParcelas;
+
+    // Executor para manejar las operaciones en segundo plano
+    private static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(1);
+
 
     private final long TIMEOUT = 15000;
 
@@ -33,15 +39,16 @@ public class ParcelaRepository {
         return mAllParcelas;
     }
 
-    public long insert(Parcela parcela) {
-        Future<Long> future = CampingDataDatabase.databaseWriteExecutor.submit(
-                () -> mParcelaDao.insert(parcela));
-        try {
-            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
-            Log.d("ParcelaRepository", ex.getClass().getSimpleName() + ex.getMessage());
-            return -1;
-        }
+    public void insert(Parcela parcela) {
+        databaseWriteExecutor.execute(() -> {
+            mParcelaDao.insert(parcela);
+        });
+//        try {
+//            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+//        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+//            Log.d("ParcelaRepository", ex.getClass().getSimpleName() + ex.getMessage());
+//            return -1;
+//        }
     }
 
     public int update(Parcela parcela) {

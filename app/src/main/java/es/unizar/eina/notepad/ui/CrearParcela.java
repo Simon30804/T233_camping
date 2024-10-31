@@ -94,6 +94,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import es.unizar.eina.notepad.R;
+import es.unizar.eina.notepad.database.Parcela;
+import es.unizar.eina.notepad.database.ParcelaRepository;
 
 /** Pantalla utilizada para la creación o edición de una parcela */
 
@@ -101,7 +103,6 @@ public class CrearParcela extends AppCompatActivity {
 
     public static final String PARCELA_NOMBRE = "nombre";
     public static final String PARCELA_DESCRIPCION = "descripcion";
-    public static final String PARCELA_ID = "id";
     public static final String PARCELA_NUMOCUPANTES = "numOcupantes";
     public static final String PARCELA_PRECIOPERSONA = "precioPersona";
 
@@ -109,15 +110,17 @@ public class CrearParcela extends AppCompatActivity {
     private EditText mDescripcionText;
     private EditText mNumOcupantesText;
     private EditText mPrecioPersonaText;
+    private ParcelaRepository parcelaRepository;
+    private Button mAceptarButton;
 
-    private Integer mRowId;
-
-    Button mAceptarButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crearparcela);
+
+        // Inicializamos el repositorio de Parcela
+        parcelaRepository = new ParcelaRepository(getApplication());
 
         // Inicializamos los campos de entrada
         mNombreText = findViewById(R.id.nombre_parcela);
@@ -135,23 +138,32 @@ public class CrearParcela extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
-                // Guardamos los datos en el Intent para enviarlos de vuelta
-                replyIntent.putExtra(CrearParcela.PARCELA_NOMBRE, mNombreText.getText().toString());
-                replyIntent.putExtra(CrearParcela.PARCELA_DESCRIPCION, mDescripcionText.getText().toString());
+                // Obtenemos los valores de los campos de entrada
+                String nombre = mNombreText.getText().toString();
+                String descripcion = mDescripcionText.getText().toString();
+                int numOcupantes = Integer.parseInt(mNumOcupantesText.getText().toString());
+                int precioPersona = Integer.parseInt(mPrecioPersonaText.getText().toString());
 
-                // Guardamos el número de ocupantes y el precio por persona como enteros
-                replyIntent.putExtra(CrearParcela.PARCELA_NUMOCUPANTES, Integer.parseInt(mNumOcupantesText.getText().toString()));
-                replyIntent.putExtra(CrearParcela.PARCELA_PRECIOPERSONA, Integer.parseInt(mPrecioPersonaText.getText().toString()));
+                // Creamos una nueva instancia de Parcela
+                Parcela parcela = new Parcela(nombre, descripcion, numOcupantes, precioPersona);
 
-                // Si es una edición, también pasamos el ID de la parcela
-                if (mRowId != null) {
-                    replyIntent.putExtra(CrearParcela.PARCELA_ID, mRowId.intValue());
-                }
-                setResult(RESULT_OK, replyIntent);
+                // Insertamos la parcela en la base de datos
+
+                parcelaRepository.insert(parcela);
+                String mensaje = "Parcela guardada correctamente:\n" +
+                        "Nombre: " + nombre + "\n" +
+                        "Descripción: " + descripcion + "\n" +
+                        "Número de Ocupantes: " + numOcupantes + "\n" +
+                        "Precio por Persona: " + precioPersona;
+
+                // Mostramos el mensaje en un Toast
+                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Parcela guardada correctamente", Toast.LENGTH_SHORT).show();
+
+                // Finalizamos la actividad
+                finish();
             }
-            finish();
         });
-
         //populateFields();
     }
 

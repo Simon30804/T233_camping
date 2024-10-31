@@ -49,10 +49,15 @@ public class ParcelaListAdapter extends ListAdapter<Parcela, ParcelaViewHolder> 
 
     static class ParcelaDiff extends DiffUtil.ItemCallback<Parcela> {
 
+//        @Override
+//        public boolean areItemsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
+//            //android.util.Log.d ( "ParcelaDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
+//            return oldItem.getNombre() == newItem.getNombre();
+//        }
+
         @Override
         public boolean areItemsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
-            //android.util.Log.d ( "ParcelaDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
-            return oldItem.getId() == newItem.getId();
+            return areContentsTheSame(oldItem, newItem);
         }
 
         @Override

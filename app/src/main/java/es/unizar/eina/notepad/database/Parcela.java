@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey;
 /** Clase anotada como entidad que representa una parcela y que consta de nombre, descripción, numero de ocupantes y precio por persona */
 @Entity(tableName = "parcela")
 public class Parcela {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int id;
-
+    //@PrimaryKey(autoGenerate = true)
+//    @ColumnInfo(name = "id")
+//    private int id;
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "nombre")
     private String nombre;
@@ -34,18 +34,13 @@ public class Parcela {
     }
 
     /** Devuelve el identificador de la parcela */
-    public int getId(){
-        return this.id;
-    }
-
-    /** Permite actualizar el identificador de una parcela */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /** Devuelve el nombre de la parcela */
     public String getNombre(){
         return this.nombre;
+    }
+
+    /** Permite actualizar el nombre de una parcela */
+    public void setNombre(@NonNull String nombre) {
+        this.nombre = nombre;
     }
 
     /** Devuelve la descripción de la parcela */
