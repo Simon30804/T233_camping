@@ -27,17 +27,9 @@ public class Notepad extends AppCompatActivity {
     static final int DELETE_ID = Menu.FIRST + 1;
     static final int EDIT_ID = Menu.FIRST + 2;
 
-    //static final int CREAR_PARCELA_ID = Menu.FIRST;
-    //static final int LISTAR_PARCELAs_ID = Menu.FIRST + 1;
-    //static final int CREAR_RESERVA_ID = Menu.FIRST + 2;
-    //static final int LISTAR_RESERVAS_ID = Menu.FIRST + 3;
-
-
     RecyclerView mRecyclerView;
 
     NoteListAdapter mAdapter;
-    //ParcelaListAdapter mParAdapter;
-    //ReservaListAdapter mResAdapter;
 
     FloatingActionButton mFab;
 
@@ -81,7 +73,7 @@ public class Notepad extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-     public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         Note current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
@@ -102,14 +94,14 @@ public class Notepad extends AppCompatActivity {
         mStartCreateNote.launch(new Intent(this, NoteEdit.class));
     }
 
-    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
+    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
         public void process(Bundle extras, Note note) {
             mNoteViewModel.insert(note);
         }
     });
 
-    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult2 executable) {
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult executable) {
         return registerForActivityResult(
                 new StartActivityForResult(),
                 result -> {
@@ -130,7 +122,7 @@ public class Notepad extends AppCompatActivity {
         mStartUpdateNote.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult2() {
+    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
         public void process(Bundle extras, Note note) {
             int id = extras.getInt(NoteEdit.NOTE_ID);

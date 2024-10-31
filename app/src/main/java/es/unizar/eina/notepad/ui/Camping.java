@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -46,33 +47,68 @@ public class Camping extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camping);
-        mRecyclerView = findViewById(R.id.recyclerview);
-        mParAdapter = new ParcelaListAdapter(new ParcelaListAdapter.ParcelaDiff());
-        mResAdapter = new ReservaListAdapter(new ReservaListAdapter.ReservaDiff());
-        mRecyclerView.setAdapter(mParAdapter);
-        mRecyclerView.setAdapter(mResAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
-        mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
+        Button buttonCreateParcela = findViewById(R.id.button_create_parcela);
+        Button buttonListParcelas = findViewById(R.id.button_list_parcelas);
+        Button buttonCreateReserva = findViewById(R.id.button_create_reserva);
+        Button buttonListReservas = findViewById(R.id.button_list_reservas);
 
-        mParcelaViewModel.getAllParcelas().observe(this, parcelas -> {
-            // Update the cached copy of the parcelas in the adapter.
-            mParAdapter.submitList(parcelas);
+        buttonCreateParcela.setOnClickListener(view -> {
+            // Inicia la actividad para crear una nueva parcela
+            Intent intent = new Intent(Camping.this, CrearParcela.class);
+            startActivity(intent);
         });
 
-        mReservaViewModel.getAllReservas().observe(this, reservas -> {
-            // Update the cached copy of the reservas in the adapter.
-            mResAdapter.submitList(reservas);
+        buttonListParcelas.setOnClickListener(view -> {
+            // Inicia la actividad para listar todas las parcelas
+            Intent intent = new Intent(Camping.this, ListarParcelas.class);
+            startActivity(intent);
         });
 
-        mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(view -> createParcela());
+        buttonCreateReserva.setOnClickListener(view -> {
+            // Inicia la actividad para crear una nueva reserva
+            Intent intent = new Intent(Camping.this, CrearReserva.class);
+            startActivity(intent);
+        });
 
-        // It doesn't affect if we comment the following instruction
-        registerForContextMenu(mRecyclerView);
-
+        buttonListReservas.setOnClickListener(view -> {
+            // Inicia la actividad para listar todas las reservas
+            Intent intent = new Intent(Camping.this, ListarReservas.class);
+            startActivity(intent);
+        });
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_camping);
+//        mRecyclerView = findViewById(R.id.recyclerview);
+//        mParAdapter = new ParcelaListAdapter(new ParcelaListAdapter.ParcelaDiff());
+//        mResAdapter = new ReservaListAdapter(new ReservaListAdapter.ReservaDiff());
+//        mRecyclerView.setAdapter(mParAdapter);
+//        mRecyclerView.setAdapter(mResAdapter);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
+//        mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
+//
+//        mParcelaViewModel.getAllParcelas().observe(this, parcelas -> {
+//            // Update the cached copy of the parcelas in the adapter.
+//            mParAdapter.submitList(parcelas);
+//        });
+//
+//        mReservaViewModel.getAllReservas().observe(this, reservas -> {
+//            // Update the cached copy of the reservas in the adapter.
+//            mResAdapter.submitList(reservas);
+//        });
+//
+//        mFab = findViewById(R.id.fab);
+//        mFab.setOnClickListener(view -> createParcela());
+//
+//        // It doesn't affect if we comment the following instruction
+//        registerForContextMenu(mRecyclerView);
+//
+//    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
@@ -141,6 +177,11 @@ public class Camping extends AppCompatActivity {
         public void process(Bundle extras, Parcela parcela) {
             mParcelaViewModel.insert(parcela);
         }
+
+        @Override
+        public void process(Bundle extras, Reserva reserva) {
+            mReservaViewModel.insert(reserva);
+        }
     });
 
     private void listarParcelas() {
@@ -152,13 +193,25 @@ public class Camping extends AppCompatActivity {
         public void process(Bundle extras, Parcela parcela) {
             mParcelaViewModel.insert(parcela);
         }
+
+        @Override
+        public void process(Bundle extras, Reserva reserva) {
+            mReservaViewModel.insert(reserva);
+        }
     });
+
+
 
     private void createReserva() {
         mStartCreateReserva.launch(new Intent(this, CrearReserva.class));
     }
 
     ActivityResultLauncher<Intent> mStartCreateReserva = newActivityResultLauncher(new ExecuteActivityResult2() {
+        @Override
+        public void process(Bundle extras, Parcela parcela) {
+            mParcelaViewModel.insert(parcela);
+        }
+
         @Override
         public void process(Bundle extras, Reserva reserva) {
             mReservaViewModel.insert(reserva);
@@ -170,6 +223,11 @@ public class Camping extends AppCompatActivity {
     }
 
     ActivityResultLauncher<Intent> mStartListarReservas = newActivityResultLauncher(new ExecuteActivityResult2() {
+        @Override
+        public void process(Bundle extras, Parcela parcela) {
+            mParcelaViewModel.insert(parcela);
+        }
+
         @Override
         public void process(Bundle extras, Reserva reserva) {
             mReservaViewModel.insert(reserva);
@@ -183,11 +241,21 @@ public class Camping extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
                         Parcela parcela = new Parcela(extras.getString(CrearParcela.PARCELA_NOMBRE),
-                                extras.getString(CrearParcela.PARCELA_DESCRIPCION));
+                                extras.getString(CrearParcela.PARCELA_DESCRIPCION),
+                                extras.getInt(CrearParcela.PARCELA_NUMOCUPANTES),
+                                extras.getFloat(CrearParcela.PARCELA_PRECIOPERSONA));
                         executable.process(extras, parcela);
                     }
                 });
     }
+
+    //La pantalla camping tiene las opciones de crear una parcela, listar las parcelas que hay, crear una reserva o listar las reservas que hay
+
+    //En la pantalla de listar parcelas y reservas, se podrá modificar o eliminar una parcela o reserva, y se podrá volver a la pantalla principal
+
+    //En la pantalla de crear parcela y reserva, se podrá crear una parcela o reserva, y se podrá volver a la pantalla principal
+
+
 
     private void editParcela(Parcela current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
