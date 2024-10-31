@@ -57,7 +57,7 @@ public abstract class CampingDataDatabase extends RoomDatabase {
                 Parcela parcela = new Parcela("Valle de Anso", "Tiene agua, y varias tomas de corriente", 7, 6.5);
                 daoP.insert(parcela);
 
-                Reserva reserva = new Reserva("2021-06-01", "2021-06-15", "Javier Susín", 623456324, 8);
+                Reserva reserva = new Reserva("2021-06-01", "2021-06-15", "Javier Susín", "623456324", 8);
                 daoR.insert(reserva);
             });
         }

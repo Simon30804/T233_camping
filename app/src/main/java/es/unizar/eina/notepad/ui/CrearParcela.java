@@ -130,42 +130,58 @@ public class CrearParcela extends AppCompatActivity {
 
         // Inicializamos el botón de guardar
         mAceptarButton = findViewById(R.id.button_aceptar_parcela);
+
         mAceptarButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
+            String nombre = mNombreText.getText().toString();
+            String descripcion = mDescripcionText.getText().toString();
+            int numOcupantes = Integer.parseInt(mNumOcupantesText.getText().toString());
+            double precioPersona = Double.parseDouble(mPrecioPersonaText.getText().toString());
 
-            // Verificamos que el nombre y los otros campos obligatorios no estén vacíos
-            if (TextUtils.isEmpty(mNombreText.getText()) || TextUtils.isEmpty(mNumOcupantesText.getText()) || TextUtils.isEmpty(mPrecioPersonaText.getText())) {
-                setResult(RESULT_CANCELED, replyIntent);
-                Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
-            } else {
-                // Obtenemos los valores de los campos de entrada
-                String nombre = mNombreText.getText().toString();
-                String descripcion = mDescripcionText.getText().toString();
-                int numOcupantes = Integer.parseInt(mNumOcupantesText.getText().toString());
-                int precioPersona = Integer.parseInt(mPrecioPersonaText.getText().toString());
+            Parcela parcela = new Parcela(nombre, descripcion, numOcupantes, precioPersona);
+            parcelaRepository.insert(parcela);
 
-                // Creamos una nueva instancia de Parcela
-                Parcela parcela = new Parcela(nombre, descripcion, numOcupantes, precioPersona);
-
-                // Insertamos la parcela en la base de datos
-
-                parcelaRepository.insert(parcela);
-                String mensaje = "Parcela guardada correctamente:\n" +
-                        "Nombre: " + nombre + "\n" +
-                        "Descripción: " + descripcion + "\n" +
-                        "Número de Ocupantes: " + numOcupantes + "\n" +
-                        "Precio por Persona: " + precioPersona;
-
-                // Mostramos el mensaje en un Toast
-                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-                Toast.makeText(this, "Parcela guardada correctamente", Toast.LENGTH_SHORT).show();
-
-                // Finalizamos la actividad
-                finish();
-            }
+            Toast.makeText(this, "Parcela guardada correctamente", Toast.LENGTH_SHORT).show();
+            finish();
         });
-        //populateFields();
-    }
+
+
+//        mAceptarButton.setOnClickListener(view -> {
+//            Intent replyIntent = new Intent();
+//
+//            // Verificamos que el nombre y los otros campos obligatorios no estén vacíos
+//            if (TextUtils.isEmpty(mNombreText.getText()) || TextUtils.isEmpty(mNumOcupantesText.getText()) || TextUtils.isEmpty(mPrecioPersonaText.getText())) {
+//                setResult(RESULT_CANCELED, replyIntent);
+//                Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
+//            } else {
+//                // Obtenemos los valores de los campos de entrada
+//                String nombre = mNombreText.getText().toString();
+//                String descripcion = mDescripcionText.getText().toString();
+//                int numOcupantes = Integer.parseInt(mNumOcupantesText.getText().toString());
+//                int precioPersona = Integer.parseInt(mPrecioPersonaText.getText().toString());
+//
+//                // Creamos una nueva instancia de Parcela
+//                Parcela parcela = new Parcela(nombre, descripcion, numOcupantes, precioPersona);
+//
+//                // Insertamos la parcela en la base de datos
+//
+//                parcelaRepository.insert(parcela);
+//                String mensaje = "Parcela guardada correctamente:\n" +
+//                        "Nombre: " + nombre + "\n" +
+//                        "Descripción: " + descripcion + "\n" +
+//                        "Número de Ocupantes: " + numOcupantes + "\n" +
+//                        "Precio por Persona: " + precioPersona;
+//
+//                // Mostramos el mensaje en un Toast
+//                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Parcela guardada correctamente", Toast.LENGTH_SHORT).show();
+//
+//                // Finalizamos la actividad
+//                finish();
+//            }
+//        });
+//        //populateFields();
+//    }
+
 
 //    private void populateFields() {
 //        mRowId = null;
@@ -187,5 +203,6 @@ public class CrearParcela extends AppCompatActivity {
 //            mRowId = extras.getInt(CrearParcela.PARCELA_ID);
 //        }
 //    }
+    }
 }
 

@@ -1,73 +1,261 @@
 package es.unizar.eina.notepad.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import es.unizar.eina.notepad.R;
+import es.unizar.eina.notepad.database.Reserva;
+import es.unizar.eina.notepad.database.ReservaDao;
+
 
 public class ListarReservas extends AppCompatActivity {
 
-    private ReservaViewModel mReservaViewModel;
-    private RecyclerView mRecyclerView;
-    private ReservaListAdapter mAdapter;
-    private Spinner mOrderSpinner;
-    private Button mModificarButton;
-    private Button mEliminarButton;
+    private LinearLayout listaReservas;
+    private LinearLayout layoutBotones;
+    private Button buttonModificar;
+    private Button buttonEliminar;
+    private Spinner spinnerOrder;
+    private ArrayList<CheckBox> checkBoxes;
+    //private ArrayList<Reserva> reservas;
+    private ReservaViewModel reservaViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listarreservas);
 
-        // Configurar RecyclerView
-        mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new ReservaListAdapter(new ReservaListAdapter.ReservaDiff());
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Inicialización de vistas
+        listaReservas = findViewById(R.id.lista_reservas);
+        layoutBotones = findViewById(R.id.layout_botones);
+        buttonModificar = findViewById(R.id.button_modificar);
+        buttonEliminar = findViewById(R.id.button_eliminar);
+        spinnerOrder = findViewById(R.id.spinner_order);
 
-        // Configurar ViewModel
-        mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
-        mReservaViewModel.getAllReservas().observe(this, reservas -> {
-            mAdapter.submitList(reservas);
+        checkBoxes = new ArrayList<>();
+
+        // Inicializar el ViewModel
+        reservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
+
+        // Observar el LiveData de reservas
+        reservaViewModel.getAllReservas().observe(this, new Observer<List<Reserva>>() {
+            @Override
+            public void onChanged(List<Reserva> reservas) {
+                // Limpia la lista actual de CheckBoxes
+                listaReservas.removeAllViews();
+                checkBoxes.clear();
+
+                // Crear un CheckBox para cada reserva en la lista
+                for (Reserva reserva : reservas) {
+                    CheckBox checkBox = new CheckBox(ListarReservas.this);
+                    checkBox.setText(reserva.getNombreCliente()); // Mostrar el nombre del cliente
+                    checkBox.setTag(reserva.getId()); // Guarda el ID en el tag
+                    checkBox.setOnClickListener(ListarReservas.this::onCheckBoxClicked);
+                    listaReservas.addView(checkBox);
+                    checkBoxes.add(checkBox);
+                }
+            }
         });
 
+        buttonModificar.setOnClickListener(v -> {
+            CheckBox selectedCheckBox = getSelectedCheckBox();
+            if (selectedCheckBox != null) {
+                int reservaId = getReservaId(selectedCheckBox); // Obtén el ID real de la reserva
 
+                Intent intent = new Intent(ListarReservas.this, ModificarReserva.class);
+                Reserva reservaSeleccionada = obtenerReservaPorId(reservaId);
+                if (reservaSeleccionada != null) {
+                    intent.putExtra(ModificarReserva.RESERVA_ID, reservaSeleccionada.getId());
+                    intent.putExtra(ModificarReserva.RESERVA_FECHA_INICIO, reservaSeleccionada.getFechaInicio());
+                    intent.putExtra(ModificarReserva.RESERVA_FECHA_FIN, reservaSeleccionada.getFechaFin());
+                    intent.putExtra(ModificarReserva.RESERVA_NOMBRE_CLIENTE, reservaSeleccionada.getNombreCliente());
+                    intent.putExtra(ModificarReserva.RESERVA_TELEFONO, reservaSeleccionada.getTelefono());
+                    intent.putExtra(ModificarReserva.RESERVA_NUM_OCUPANTES, reservaSeleccionada.getNumOcupantes());
 
-        // Configurar Spinner para ordenar
-        mOrderSpinner = findViewById(R.id.spinner_order);
-//        mOrderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String selectedOrder = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(ListarReservas.this, "Ordenar por: " + selectedOrder, Toast.LENGTH_SHORT).show();
-//                // Aquí podrías implementar la lógica de ordenación en el ViewModel si es necesario
-//            }
-//
-//
-//        });
-
-        // Configurar botones de modificar y eliminar
-        mModificarButton = findViewById(R.id.modificar_reserva);
-        mEliminarButton = findViewById(R.id.eliminar_reserva);
-
-        mModificarButton.setOnClickListener(v -> {
-            // Lógica para modificar reserva
-            Toast.makeText(this, "Modificar reserva seleccionado", Toast.LENGTH_SHORT).show();
-            // Aquí podrías implementar la lógica de modificación
-        });
-
-        mEliminarButton.setOnClickListener(v -> {
-            // Lógica para eliminar reserva
-            Toast.makeText(this, "Eliminar reserva seleccionado", Toast.LENGTH_SHORT).show();
-            // Aquí podrías implementar la lógica de eliminación
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Reserva no encontrada", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Seleccione una reserva para modificar", Toast.LENGTH_SHORT).show();
+            }
         });
     }
+
+    // Método que se ejecuta cuando un CheckBox es clickeado
+    private void onCheckBoxClicked(View view) {
+        boolean anyChecked = false;
+        // Verificar si al menos un CheckBox está seleccionado
+        for (CheckBox checkBox : checkBoxes) {
+            if (checkBox.isChecked()) {
+                anyChecked = true;
+                break;
+            }
+        }
+        // Mostrar u ocultar los botones en función de la selección
+        if (anyChecked) {
+            layoutBotones.setVisibility(View.VISIBLE);
+        } else {
+            layoutBotones.setVisibility(View.GONE);
+        }
+    }
+
+
+    private CheckBox getSelectedCheckBox() {
+        for (CheckBox checkBox : checkBoxes) {
+            if (checkBox.isChecked()) {
+                return checkBox;
+            }
+        }
+        return null;
+    }
+
+    private int getReservaId(CheckBox checkBox) {
+        return (int) checkBox.getTag();
+    }
+
+    private Reserva obtenerReservaPorId(int reservaId) {
+        List<Reserva> reservas = reservaViewModel.getAllReservas().getValue();
+        if (reservas != null) {
+            for (Reserva reserva : reservas) {
+                if (reserva.getId() == reservaId) {
+                    return reserva;
+                }
+            }
+        }
+        return null;
+    }
+
+
+//        // Generar los CheckBoxes dinámicamente y asociarlos con sus reservas
+//        for (Reserva reserva : reservas) {
+//            CheckBox checkBox = new CheckBox(this);
+//            checkBox.setText(reserva.getNombreCliente()); // Muestra el nombre del cliente
+//            checkBox.setTag(reserva.getId()); // Guarda el ID de la reserva como etiqueta
+//            checkBox.setOnClickListener(this::onCheckBoxClicked);
+//            listaReservas.addView(checkBox);
+//            checkBoxes.add(checkBox);
+//        }
+//
+//        buttonModificar.setOnClickListener(v -> {
+//            CheckBox selectedCheckBox = getSelectedCheckBox();
+//            if (selectedCheckBox != null) {
+//                int reservaId = getReservaId(selectedCheckBox); // Obtén el ID real de la reserva
+//
+//                Intent intent = new Intent(ListarReservas.this, ModificarReserva.class);
+//                Reserva reservaSeleccionada = obtenerReservaPorId(reservaId);
+//                if (reservaSeleccionada != null) {
+//                    intent.putExtra(ModificarReserva.RESERVA_ID, reservaSeleccionada.getId());
+//                    intent.putExtra(ModificarReserva.RESERVA_FECHA_INICIO, reservaSeleccionada.getFechaInicio());
+//                    intent.putExtra(ModificarReserva.RESERVA_FECHA_FIN, reservaSeleccionada.getFechaFin());
+//                    intent.putExtra(ModificarReserva.RESERVA_NOMBRE_CLIENTE, reservaSeleccionada.getNombreCliente());
+//                    intent.putExtra(ModificarReserva.RESERVA_TELEFONO, reservaSeleccionada.getTelefono());
+//                    intent.putExtra(ModificarReserva.RESERVA_NUM_OCUPANTES, reservaSeleccionada.getNumOcupantes());
+//
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(this, "Reserva no encontrada", Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                Toast.makeText(this, "Seleccione una reserva para modificar", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        // Configuración del botón Eliminar
+//        buttonEliminar.setOnClickListener(v -> {
+//            Toast.makeText(this, "Eliminar reserva seleccionada", Toast.LENGTH_SHORT).show();
+//            // Implementa la lógica para eliminar la reserva seleccionada
+//        });
+//    }
+//
+//    // Método que se ejecuta cuando un CheckBox es clickeado
+//    private void onCheckBoxClicked(View view) {
+//        boolean anyChecked = false;
+//
+//        // Verificar si al menos un CheckBox está seleccionado
+//        for (CheckBox checkBox : checkBoxes) {
+//            if (checkBox.isChecked()) {
+//                anyChecked = true;
+//                break;
+//            }
+//        }
+//
+//        // Mostrar u ocultar los botones en función de la selección
+//        if (anyChecked) {
+//            layoutBotones.setVisibility(View.VISIBLE);
+//        } else {
+//            layoutBotones.setVisibility(View.GONE);
+//        }
+//    }
+//
+//    // Método para obtener el CheckBox seleccionado (solo uno permitido)
+//    private CheckBox getSelectedCheckBox() {
+//        for (CheckBox checkBox : checkBoxes) {
+//            if (checkBox.isChecked()) {
+//                return checkBox;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    // Método para obtener el ID de la reserva desde el CheckBox seleccionado
+//    private int getReservaId(CheckBox checkBox) {
+//        // Obtenemos el ID almacenado en el tag del CheckBox
+//        return (int) checkBox.getTag();
+//    }
+//
+//    private Reserva obtenerReservaPorId(int reservaId) {
+//        for (Reserva reserva : reservas) {
+//            if (reserva.getId() == reservaId) {
+//                return reserva;
+//            }
+//        }
+//        return null;
+//    }
+
+
+
+//        // Configuración del botón Modificar
+//        buttonModificar.setOnClickListener(v -> {
+//            Toast.makeText(this, "Modificar reserva seleccionada", Toast.LENGTH_SHORT).show();
+//            // Implementa la lógica para modificar la reserva seleccionada
+//
+//        });
+//
+//        // Configuración del botón Eliminar
+//        buttonEliminar.setOnClickListener(v -> {
+//            Toast.makeText(this, "Eliminar reserva seleccionada", Toast.LENGTH_SHORT).show();
+//            // Implementa la lógica para eliminar la reserva seleccionada
+//        });
+//    }
+//
+//    // Método que se ejecuta cuando un CheckBox es clickeado
+//    private void onCheckBoxClicked(View view) {
+//        boolean anyChecked = false;
+//
+//        // Verificar si al menos un CheckBox está seleccionado
+//        for (CheckBox checkBox : checkBoxes) {
+//            if (checkBox.isChecked()) {
+//                anyChecked = true;
+//                break;
+//            }
+//        }
+//
+//        // Mostrar u ocultar los botones en función de la selección
+//        if (anyChecked) {
+//            layoutBotones.setVisibility(View.VISIBLE);
+//        } else {
+//            layoutBotones.setVisibility(View.GONE);
+//        }
 }

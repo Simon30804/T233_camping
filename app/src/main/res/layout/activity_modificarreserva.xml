@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Campo de fecha de inicio -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Inicio"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/fecha_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese la fecha de inicio" />
+
+    <!-- Campo de fecha de fin -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Fin"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/fecha_fin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese la fecha de fin" />
+
+    <!-- Campo de nombre del cliente -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del Cliente"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/nombre_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el nombre del cliente" />
+
+    <!-- Campo de teléfono -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teléfono del Cliente"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/telefono_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el teléfono" />
+
+    <!-- Campo de número de ocupantes -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número de Ocupantes"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/num_ocupantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el número de ocupantes"
+        android:inputType="number" />
+
+    <!-- Botón Guardar para Modificar Reserva -->
+    <Button
+        android:id="@+id/button_modificar_reserva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Guardar Cambios"
+        android:paddingTop="16dp" />
+</LinearLayout>

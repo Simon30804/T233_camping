@@ -23,5 +23,6 @@
     <string name="listar_reservas">Listar Reservas</string>
     <string name="modificar_reserva">Modificar Reserva</string>
     <string name="eliminar_reserva">Eliminar Reserva</string>
+    <string name="button_modificar_reserva"></string>
 
 </resources>

@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Campo de nombre de la parcela (no editable porque es clave primaria) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la Parcela"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/nombre_parcela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el nombre de la parcela"
+        android:enabled="false" />
+
+    <!-- Campo de descripción -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese la descripción" />
+
+    <!-- Campo de número de ocupantes -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número de Ocupantes"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/num_ocupantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el número de ocupantes"
+        android:inputType="number" />
+
+    <!-- Campo de precio por persona -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Precio por Persona"
+        android:paddingTop="8dp" />
+
+    <EditText
+        android:id="@+id/precio_persona"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el precio por persona"
+        android:inputType="numberDecimal" />
+
+    <!-- Botón Guardar para Modificar Parcela -->
+    <Button
+        android:id="@+id/button_modif_parcela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Guardar Cambios"
+        android:paddingTop="16dp" />
+</LinearLayout>

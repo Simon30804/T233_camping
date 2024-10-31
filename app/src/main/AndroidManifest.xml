@@ -24,7 +24,6 @@
         </activity>
 
         <!-- Declaración de otras actividades -->
-        <activity android:name=".ui.Camping2" android:exported="false" />
         <activity android:name=".ui.CrearParcela" android:exported="false" />
         <activity android:name=".ui.CrearReserva" android:exported="false" />
         <activity android:name=".ui.ListarParcelas" android:exported="false" />
@@ -35,6 +34,8 @@
         <activity android:name=".ui.ReservaListAdapter" android:exported="false" />
         <activity android:name=".ui.ReservaViewHolder" android:exported="false" />
         <activity android:name=".ui.ReservaViewModel" android:exported="false" />
+        <activity android:name=".ui.ModificarReserva" android:exported="false" />
+        <activity android:name=".ui.ModificarParcela" android:exported="false" />
 
     </application>
 

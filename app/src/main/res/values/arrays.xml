@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="order_options">
-        <item>Nombre</item>
-        <item>Precio</item>
-        <item>Número de Ocupantes</item>
+    <string-array name="order_options_reservas">
+        <item>Nombre cliente</item>
+        <item>NºMóvil</item>
         <item>Fecha de Reserva</item>
+    </string-array>
+
+    <string-array name="order_options_parcelas">
+        <item>Nombre </item>
+        <item>Número de Ocupantes</item>
+        <item>Precio por Persona</item>
     </string-array>
 </resources>

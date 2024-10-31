@@ -23,6 +23,9 @@ public interface ReservaDao {
     @Delete
     int delete(Reserva reserva);
 
+    @Query("SELECT * FROM reserva WHERE id = :id")
+    LiveData<Reserva> getReservaById(int id);
+
     @Query("DELETE FROM reserva")
     void deleteAll();
 

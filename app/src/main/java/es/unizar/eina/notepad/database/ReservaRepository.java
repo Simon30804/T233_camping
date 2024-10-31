@@ -32,6 +32,10 @@ public class ReservaRepository {
         return mAllReservas;
     }
 
+    public LiveData<Reserva> getReservaById(int id) {
+        return mReservaDao.getReservaById(id); // Asegúrate de que ReservaDao tenga este método
+    }
+
     public long insert(Reserva reserva) {
         Future<Long> future = CampingDataDatabase.databaseWriteExecutor.submit(
                 () -> mReservaDao.insert(reserva));
