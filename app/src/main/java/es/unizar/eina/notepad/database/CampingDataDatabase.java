@@ -16,6 +16,7 @@ public abstract class CampingDataDatabase extends RoomDatabase {
 
     public abstract ParcelaDao parcelaDao();
     public abstract ReservaDao reservaDao();
+    public abstract disposicionParcelasDAO disposicionParcelasDAO();
 
     private static volatile CampingDataDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

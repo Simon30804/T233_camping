@@ -120,6 +120,24 @@ public class ListarParcelas extends AppCompatActivity {
         });
     }
 
+    // Método que se ejecuta cuando un CheckBox es clickeado
+    private void onCheckBoxClicked(View view) {
+        boolean anyChecked = false;
+        // Verificar si al menos un CheckBox está seleccionado
+        for (CheckBox checkBox : checkBoxes) {
+            if (checkBox.isChecked()) {
+                anyChecked = true;
+                break;
+            }
+        }
+        // Mostrar u ocultar los botones en función de la selección
+        if (anyChecked) {
+            layoutBotones.setVisibility(View.VISIBLE);
+        } else {
+            layoutBotones.setVisibility(View.GONE);
+        }
+    }
+
     private CheckBox getSelectedCheckBox() {
         for (CheckBox checkBox : checkBoxes) {
             if (checkBox.isChecked()) {
@@ -129,10 +147,6 @@ public class ListarParcelas extends AppCompatActivity {
         return null;
     }
 
-    private void onCheckBoxClicked(View view) {
-        boolean anyChecked = checkBoxes.stream().anyMatch(CheckBox::isChecked);
-        layoutBotones.setVisibility(anyChecked ? View.VISIBLE : View.GONE);
-    }
 
     // Modificado para obtener la parcela real desde el ViewModel
     private Parcela obtenerParcelaPorNombre(String parcelaNombre) {

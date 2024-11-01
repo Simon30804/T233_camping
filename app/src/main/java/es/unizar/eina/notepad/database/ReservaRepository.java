@@ -13,6 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 public class ReservaRepository {
     private final ReservaDao mReservaDao;
+    private final disposicionParcelasDAO mDisposicionParcelasDAO;
     private final LiveData<List<Reserva>> mAllReservas;
 
     private final long TIMEOUT = 15000;
@@ -20,6 +21,7 @@ public class ReservaRepository {
     public ReservaRepository(Application application) {
         CampingDataDatabase db = CampingDataDatabase.getDatabase(application);
         mReservaDao = db.reservaDao();
+        mDisposicionParcelasDAO = db.disposicionParcelasDAO();
         mAllReservas = mReservaDao.getAllReservas();
     }
 
@@ -34,6 +36,17 @@ public class ReservaRepository {
 
     public LiveData<Reserva> getReservaById(int id) {
         return mReservaDao.getReservaById(id); // Asegúrate de que ReservaDao tenga este método
+    }
+
+    public List<disposicionParcelas> getParcelasForReserva(int reservaId) {
+        Future<List<disposicionParcelas>> future = CampingDataDatabase.databaseWriteExecutor.submit(
+                () -> mDisposicionParcelasDAO.getParcelasForReserva(reservaId));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("ReservaRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return null;
+        }
     }
 
     public long insert(Reserva reserva) {
