@@ -22,6 +22,7 @@ public class ListarParcelas extends AppCompatActivity {
 
     private LinearLayout listaParcelas;
     private LinearLayout layoutBotones;
+    private Button buttonVolver;
     private Button buttonModificar;
     private Button buttonEliminar;
     private Spinner spinnerOrder;
@@ -36,6 +37,7 @@ public class ListarParcelas extends AppCompatActivity {
         // Inicialización de vistas
         listaParcelas = findViewById(R.id.lista_parcelas);
         layoutBotones = findViewById(R.id.layout_botones);
+        buttonVolver = findViewById(R.id.button_volver);
         buttonModificar = findViewById(R.id.button_modificar);
         buttonEliminar = findViewById(R.id.button_eliminar);
         spinnerOrder = findViewById(R.id.spinner_order);
@@ -62,8 +64,22 @@ public class ListarParcelas extends AppCompatActivity {
                     listaParcelas.addView(checkBox);
                     checkBoxes.add(checkBox);
                 }
+                layoutBotones.setVisibility(View.GONE);
             }
         });
+
+
+        // Configurar el listener del botón
+        buttonVolver.setOnClickListener(view -> {
+            // Crear el Intent para abrir la actividad Camping
+            Intent intent = new Intent(ListarParcelas.this, Camping.class);
+            startActivity(intent);
+
+            // Finalizar la actividad actual
+            finish();
+        });
+
+
 
         buttonModificar.setOnClickListener(v -> {
             CheckBox selectedCheckBox = getSelectedCheckBox();
@@ -84,6 +100,22 @@ public class ListarParcelas extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(this, "Seleccione una parcela para modificar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        buttonEliminar.setOnClickListener(v -> {
+            CheckBox selectedCheckBox = getSelectedCheckBox();
+            if (selectedCheckBox != null) {
+                String parcelaNombre = (String) selectedCheckBox.getTag();
+                Parcela parcelaSeleccionada = obtenerParcelaPorNombre(parcelaNombre);
+                if (parcelaSeleccionada != null) {
+                    parcelaViewModel.delete(parcelaSeleccionada);
+                    Toast.makeText(this, "Parcela eliminada correctamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Parcela no encontrada", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Seleccione una parcela para eliminar", Toast.LENGTH_SHORT).show();
             }
         });
     }

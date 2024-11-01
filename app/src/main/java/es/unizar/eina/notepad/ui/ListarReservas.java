@@ -24,6 +24,7 @@ public class ListarReservas extends AppCompatActivity {
 
     private LinearLayout listaReservas;
     private LinearLayout layoutBotones;
+    private Button buttonVolver;
     private Button buttonModificar;
     private Button buttonEliminar;
     private Spinner spinnerOrder;
@@ -39,6 +40,7 @@ public class ListarReservas extends AppCompatActivity {
         // Inicialización de vistas
         listaReservas = findViewById(R.id.lista_reservas);
         layoutBotones = findViewById(R.id.layout_botones);
+        buttonVolver = findViewById(R.id.button_volver);
         buttonModificar = findViewById(R.id.button_modificar);
         buttonEliminar = findViewById(R.id.button_eliminar);
         spinnerOrder = findViewById(R.id.spinner_order);
@@ -65,7 +67,18 @@ public class ListarReservas extends AppCompatActivity {
                     listaReservas.addView(checkBox);
                     checkBoxes.add(checkBox);
                 }
+                layoutBotones.setVisibility(View.GONE);
             }
+        });
+
+        // Configurar el listener del botón
+        buttonVolver.setOnClickListener(view -> {
+            // Crear el Intent para abrir la actividad Camping
+            Intent intent = new Intent(ListarReservas.this, Camping.class);
+            startActivity(intent);
+
+            // Finalizar la actividad actual
+            finish();
         });
 
         buttonModificar.setOnClickListener(v -> {
@@ -89,6 +102,23 @@ public class ListarReservas extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(this, "Seleccione una reserva para modificar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Ahora quiero escribir el codigo necesario para que al pulsar el boton eliminar, borre la reserva seleccionada de la base de datos
+        buttonEliminar.setOnClickListener(v -> {
+            CheckBox selectedCheckBox = getSelectedCheckBox();
+            if (selectedCheckBox != null) {
+                int reservaId = getReservaId(selectedCheckBox); // Obtenemos el ID real de la reserva
+                Reserva reservaSeleccionada = obtenerReservaPorId(reservaId);
+                if (reservaSeleccionada != null) {
+                    reservaViewModel.delete(reservaSeleccionada);
+                    Toast.makeText(this, "Reserva eliminada correctamente", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Reserva no encontrada", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Seleccione una reserva para eliminar", Toast.LENGTH_SHORT).show();
             }
         });
     }

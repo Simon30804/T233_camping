@@ -52,6 +52,15 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- Botón para volver a la pantalla principal -->
+    <Button
+        android:id="@+id/button_volver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:layout_gravity="start"/>
+
+
     <!-- Botones de Modificar y Eliminar -->
     <LinearLayout
         android:layout_width="match_parent"
